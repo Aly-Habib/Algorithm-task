@@ -1,0 +1,82 @@
+				
+#######################################################################################
+				The first solution 
+#######################################################################################
+
+Algorithm first_solution (A,B,n)
+{
+
+// A is the first array and B is the second array
+// n is the size of the two arrays A and B
+
+ maxArea = 0, rectangles =0			===========> 1
+
+for i:=0 to n-1 step 1				===========> n+1
+do
+{
+	count := 0, area := 0;			===========> 1
+	for j:=0 to n-1 step 1			===========> n+1
+	do									
+	{
+	if A[i] == A[j] || A[i] == B[j] then 	===========> n+1
+		area := area + A[j]*B[j];	===========> n		
+		count := count + 1;		===========> n
+	}
+	if area > maxArea then			===========> n+1
+		rectangles := count;		===========> n
+}
+return rectangles				===========> 1
+
+}
+
+===============> F(n) = 1 + (n+1)*(1 + n+1 + n+1 + n + n + n+1 + n +) + 1 
+				 
+		      = (n+1) * (6n + 4) + 2 
+				 
+		      = 6n^2 + 10n + 4
+					
+
+===============> The time complexity of the above solution is big oh of n square O(n^2).
+
+
+##############################################################################################
+				The second solution
+##############################################################################################
+
+
+Algorithm second_solution(A, B, n, i=0, rectangles=0)
+{
+// A is the first array, B is the second array and C is an array
+// n is the size of the two arrays A and B
+
+    if  i < n then					===========> n+1	
+    {
+
+        C[2]={0,0}					===========> n
+        getMax(A, B, n, i, 0, C)			===========> n
+        if  C[0] > 0  then  rectangles = C[1]		===========> n
+        second_solution(A, B, n, i+1, rectangles)	===========> n
+    }
+    else return rectangles				===========> 1
+}
+
+Algorithm getMax(A, B, n, i, j, C)
+{
+    if  j < n  then					===========> n+1
+    {
+
+        if  A[i] == A[j] || A[i] == B[j])		===========> n
+			{
+			    C[0] += A[j] * B[j]		===========> n
+			    C[1]++			===========> n
+			}
+        getMax(A, B, n, i, j+1 , C)			===========> n
+    }
+}
+===============> F(n) = n+1 + n*( n+1 + n + n + n + n ) + n + n + 1
+
+		      = n*( 5n + 1 ) + 3n + 2
+
+		      = 5n^2 + 4n + 2
+
+===============> The time complexity of the above solution is big oh of n square O(n^2).
